@@ -11,8 +11,7 @@
 	<groupId>com.vitalynec</groupId>
 	<artifactId>phonebook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>phonebook</name>
-	<description>Demo project for Spring Boot</description>
+	<name>PhoneBook</name>
 
 	<properties>
 		<java.version>1.8</java.version>
