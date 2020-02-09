@@ -17,6 +17,15 @@ public class User {
     @Column
     protected String name;
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    protected Set<Phone> phoneList;
+    @OneToMany()
+    protected Set<Phone> phoneList;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phones{=" + phoneList +
+                '}';
+    }
 }
