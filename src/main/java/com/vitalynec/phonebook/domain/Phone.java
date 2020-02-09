@@ -13,9 +13,9 @@ public class Phone {
     @Column(nullable = false, updatable = false)
     protected Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false, name = "user_id")
-    protected Long userId;
+    @JoinColumn(nullable = false, name = "user_id")
+    @ManyToOne
+    protected User userId;
 
     @Column(nullable = false, name = "number")
     protected String number;
