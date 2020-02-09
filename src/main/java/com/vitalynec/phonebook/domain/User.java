@@ -2,19 +2,21 @@ package com.vitalynec.phonebook.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @Entity
-public class User extends AbstractEntity {
+public class User {
+
+    @Id
+    @GeneratedValue
+    @Column(nullable = false, updatable = false)
+    protected Long id;
 
     @Column
     protected String name;
 
-    @OneToMany
-    protected Set<Phone> phoneList = new HashSet<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    protected Set<Phone> phoneList;
 }

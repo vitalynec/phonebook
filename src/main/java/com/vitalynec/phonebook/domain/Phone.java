@@ -2,16 +2,20 @@ package com.vitalynec.phonebook.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import java.util.UUID;
+import javax.persistence.*;
 
 @Data
 @Entity
-public class Phone extends AbstractEntity {
+public class Phone {
 
+    @Id
+    @GeneratedValue
+    @Column(nullable = false, updatable = false)
+    protected Long id;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
     @Column(nullable = false, name = "user_id")
-    protected UUID userId;
+    protected Long userId;
 
     @Column(nullable = false, name = "number")
     protected String number;
