@@ -26,6 +26,12 @@ public class CommonController {
         this.userService = userService;
     }
 
+    public void addUser(String name) {
+        User user = new User();
+        user.setName(name);
+        userService.save(user);
+    }
+
     public List<User> getAllUsers() {
         return userService.findAll();
     }
@@ -38,7 +44,14 @@ public class CommonController {
         return userService.findByName(name).orElseThrow(NotFoundException::new);
     }
 
-    public List<Phone> getAllPhones() {
-        return phoneService.findAll();
+    public void addPhoneToUser(String number, Long id) throws NotFoundException {
+        Phone phone = new Phone();
+        phone.setUser(getUserById(id));
+        phone.setNumber(phoneService.extractNumber(number));
+        phoneService.save(phone);
+    }
+
+    public void removePhone(String number) {
+
     }
 }

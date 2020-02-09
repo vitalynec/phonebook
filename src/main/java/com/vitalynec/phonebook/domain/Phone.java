@@ -1,6 +1,5 @@
 package com.vitalynec.phonebook.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,13 +9,12 @@ import javax.persistence.*;
 public class Phone {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     protected Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "FK_user_id")
-    @JsonManagedReference
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
     @Column(nullable = false, name = "number")

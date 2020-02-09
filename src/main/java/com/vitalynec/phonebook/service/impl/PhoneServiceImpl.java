@@ -1,7 +1,6 @@
 package com.vitalynec.phonebook.service.impl;
 
 import com.vitalynec.phonebook.domain.Phone;
-import com.vitalynec.phonebook.domain.User;
 import com.vitalynec.phonebook.repository.PhoneRepository;
 import com.vitalynec.phonebook.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     /**
-     * Извлекает номер телефона из строки до шаблона (+7\7\81234567890)
+     * Извлекает номер телефона из строки до шаблона (1234567890)
      */
     public String extractNumber(String phoneNumber) {
         Matcher matcher = Pattern.compile(REG_EXP).matcher(phoneNumber);

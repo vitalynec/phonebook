@@ -1,7 +1,6 @@
 package com.vitalynec.phonebook.service.impl;
 
 import com.vitalynec.phonebook.domain.User;
-import com.vitalynec.phonebook.exception.NotFoundException;
 import com.vitalynec.phonebook.repository.UserRepository;
 import com.vitalynec.phonebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

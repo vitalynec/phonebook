@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Service
 public interface PhoneService {
+    String extractNumber(String phoneNumber);
     Optional<Phone> save(Phone entity);
     List<Phone> findAll();
 }

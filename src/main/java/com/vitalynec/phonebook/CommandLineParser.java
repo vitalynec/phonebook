@@ -4,6 +4,8 @@ import com.vitalynec.phonebook.controller.CommonController;
 import com.vitalynec.phonebook.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class CommandLineParser {
                 break;
             }
             case ("remove"): {
-                System.out.println("Давайте попробуем удалить что-нибудь...");
+                removeCommand(commands);
                 break;
             }
             case ("all"): {
@@ -56,7 +58,7 @@ public class CommandLineParser {
                 break;
             }
             case ("export"): {
-                System.out.println("Давайте попробуем экспортировать что-нибудь...");
+                System.out.println("Данный функционал находится в разработке...");
                 break;
             }
             case ("help"): {
@@ -74,9 +76,43 @@ public class CommandLineParser {
         }
     }
 
+    private void removeCommand(String[] commands) {
+        if (commands.length < 2) {
+            System.out.println("Недостаточное количество аргументов");
+            return;
+        }
+
+        if ("phone".equalsIgnoreCase(commands[1])) {
+            if (commands[2] == null || StringUtils.isEmpty(commands[2])) {
+                System.out.println("Недостаточное количество аргументов");
+            } else {
+            //TODO удаление телефона
+            }
+
+        }
+    }
+
     private void addCommand(String[] commands) {
-        System.out.println("Давайте попробуем добавить что-нибудь...");
-        System.out.println("Вы пробуете добавить ");
+        if (commands.length < 3) {
+            System.out.println("Недостаточное количество аргументов");
+            return;
+        }
+        if ("user".equalsIgnoreCase(commands[1])) {
+            controller.addUser(commands[2]);
+        }
+
+        if ("phone".equalsIgnoreCase(commands[1])) {
+            if (commands[2] == null || StringUtils.isEmpty(commands[2])) {
+                System.out.println("Недостаточное количество аргументов");
+            } else {
+                try {
+                    controller.addPhoneToUser(commands[2], Long.valueOf(commands[3]));
+                } catch (NotFoundException e) {
+                    System.out.println("Пользователь не найден!");
+                }
+            }
+
+        }
     }
 
     private void userCommand(String[] commands) {
