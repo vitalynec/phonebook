@@ -1,16 +1,16 @@
-drop table if exists "users";
-drop table if exists "phones";
+drop table user;
+drop table phone;
 
-create table users
+create table user
 (
-    id     uuid default random_uuid() primary key,
-    "name" text
+    id     int(5) not null auto_increment primary key,
+    name text
 );
 
-create table phones
+create table phone
 (
-    id      uuid default random_uuid() primary key,
-    user_id uuid,
-    number  text
+    id     int(5) not null auto_increment primary key,
+    user_id int,
+    number text
 );
 
