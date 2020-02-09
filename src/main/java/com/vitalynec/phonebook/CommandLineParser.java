@@ -24,6 +24,7 @@ public class CommandLineParser {
         List<String> commands = new ArrayList<>();
         commands.add("add [user]|[user phone]\n");
         commands.add("remove [user]|[user phone]\n");
+        commands.add("all\n");
         commands.add("user [id]\n");
         commands.add("export\n");
         commands.add("help\n");
@@ -31,7 +32,6 @@ public class CommandLineParser {
         System.out.println("Доступные команды:\n");
         for (int i = 0; i < commands.size(); i++) {
             System.out.print((i + 1) + ". " + commands.get(i));
-
         }
     }
 
@@ -48,7 +48,7 @@ public class CommandLineParser {
                 break;
             }
             case ("all"): {
-                System.out.println("Давайте попробуем показать всех...");
+                allCommand();
                 break;
             }
             case ("user"): {
@@ -86,10 +86,14 @@ public class CommandLineParser {
         }
 
         try {
-            System.out.println(controller.getUserById(Long.valueOf(commands[1])));
+            System.out.println(controller.getUserByName(commands[1]));
         } catch (NotFoundException e) {
             System.out.println("Пользователь не найден!");
         }
 
+    }
+
+    private void allCommand() {
+        System.out.println(controller.getAllUsers());
     }
 }

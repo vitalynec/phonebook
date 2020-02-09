@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface PhoneService {
     Optional<Phone> save(Phone entity);
     List<Phone> findAll();
-
 }

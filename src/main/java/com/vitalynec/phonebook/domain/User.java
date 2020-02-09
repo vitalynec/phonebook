@@ -1,8 +1,10 @@
 package com.vitalynec.phonebook.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,8 +19,9 @@ public class User {
     @Column
     protected String name;
 
-    @OneToMany()
-    protected Set<Phone> phoneList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<Phone> phoneList = new HashSet<>();
 
     @Override
     public String toString() {

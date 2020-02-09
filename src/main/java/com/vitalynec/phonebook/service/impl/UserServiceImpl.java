@@ -31,12 +31,18 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<User> findAll() {
         List<User> userList = new ArrayList<>();
-        userRepository.findAll().forEach(userList::add);
+        userList.addAll(userRepository.findAll());
         return userList;
     }
 
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public Optional<User> findByName(String name) {
+        return userRepository.findByName(name);
     }
 }

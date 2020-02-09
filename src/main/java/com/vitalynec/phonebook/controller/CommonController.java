@@ -34,6 +34,10 @@ public class CommonController {
         return userService.findById(id).orElseThrow(NotFoundException::new);
     }
 
+    public User getUserByName(String name) throws NotFoundException {
+        return userService.findByName(name).orElseThrow(NotFoundException::new);
+    }
+
     public List<Phone> getAllPhones() {
         return phoneService.findAll();
     }
