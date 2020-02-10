@@ -1,13 +1,15 @@
 package com.vitalynec.phonebook.service.impl;
 
-import com.vitalynec.phonebook.domain.User;
+import com.vitalynec.phonebook.entity.User;
+import com.vitalynec.phonebook.entity.dto.UserDto;
+import com.vitalynec.phonebook.exception.NotFoundException;
 import com.vitalynec.phonebook.repository.UserRepository;
 import com.vitalynec.phonebook.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     protected UserRepository userRepository;
+    protected ModelMapper modelMapper;
+
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -35,13 +43,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    @Transactional
+    public Optional<UserDto> findById(Integer id) throws NotFoundException {
+        return Optional.of(convertToDto(userRepository.findById(id).orElseThrow(NotFoundException::new)));
     }
 
-    @Override
-    @Transactional
-    public Optional<User> findByName(String name) {
-        return userRepository.findByName(name);
+    private UserDto convertToDto(User user) {
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    private User convertToEntity(UserDto userDto) {
+        return modelMapper.map(userDto, User.class);
     }
 }

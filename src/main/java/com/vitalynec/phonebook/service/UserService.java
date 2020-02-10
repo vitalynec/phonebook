@@ -1,18 +1,17 @@
 package com.vitalynec.phonebook.service;
 
-import com.vitalynec.phonebook.domain.User;
-import org.springframework.stereotype.Service;
+import com.vitalynec.phonebook.entity.User;
+import com.vitalynec.phonebook.entity.dto.UserDto;
+import com.vitalynec.phonebook.exception.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public interface UserService {
 
     Optional<User> save(User entity);
 
-    List<User> findAll();
+    List<UserDto> findAll();
 
-    Optional<User> findById(Long id);
-    Optional<User> findByName(String name);
+    Optional<UserDto> findById(Integer id) throws NotFoundException;
 }

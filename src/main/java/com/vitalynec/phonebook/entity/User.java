@@ -1,9 +1,8 @@
-package com.vitalynec.phonebook.domain;
+package com.vitalynec.phonebook.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -13,20 +12,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    protected Long id;
+    protected Integer id;
 
     @Column
     protected String name;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private Set<Phone> phoneList = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Phone> phoneList;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-//                ", phones{=" + phoneList +
+                ", phones{=" + phoneList +
                 '}';
     }
 }
