@@ -1,6 +1,5 @@
 package com.vitalynec.phonebook.controller;
 
-import com.vitalynec.phonebook.entity.Phone;
 import com.vitalynec.phonebook.entity.User;
 import com.vitalynec.phonebook.entity.dto.UserDto;
 import com.vitalynec.phonebook.exception.NotFoundException;
@@ -41,14 +40,13 @@ public class CommonController {
         return userService.findById(id).orElseThrow(NotFoundException::new);
     }
 
-    public void addPhoneToUser(String number, Long id) throws NotFoundException {
-        Phone phone = new Phone();
-        phone.setUser(getUserById(id));
-        phone.setNumber(phoneService.extractNumber(number));
-        phoneService.save(phone);
-    }
+//    public void addPhoneToUser(String number, Integer id) throws NotFoundException {
+//        Phone phone = new Phone();
+//        phone.setUser(getUserById(id));
+//        phone.setNumber(phoneService.extractNumber(number));
+//        phoneService.save(phone);
+//    }
 
-    public void removePhone(String number) {
-
+    public void removePhone(Long id) {
     }
 }

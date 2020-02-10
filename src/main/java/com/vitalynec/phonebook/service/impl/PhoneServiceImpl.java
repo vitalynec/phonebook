@@ -1,6 +1,6 @@
 package com.vitalynec.phonebook.service.impl;
 
-import com.vitalynec.phonebook.domain.Phone;
+import com.vitalynec.phonebook.entity.Phone;
 import com.vitalynec.phonebook.repository.PhoneRepository;
 import com.vitalynec.phonebook.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +32,16 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public List<Phone> findAll() {
-        List<Phone> phoneList = new ArrayList<>();
-        phoneRepository.findAll().forEach(phoneList::add);
-        return phoneList;
+        return phoneRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        phoneRepository.deleteById(id);
     }
 
     /**
-     * Извлекает номер телефона из строки до шаблона (1234567890)
+     * Извлекает номер телефона из строки до шаблона (+7/7/8-1234567890)
      */
     public String extractNumber(String phoneNumber) {
         Matcher matcher = Pattern.compile(REG_EXP).matcher(phoneNumber);

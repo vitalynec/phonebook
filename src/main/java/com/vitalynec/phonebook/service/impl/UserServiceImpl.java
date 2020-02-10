@@ -7,11 +7,13 @@ import com.vitalynec.phonebook.repository.UserRepository;
 import com.vitalynec.phonebook.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,10 +38,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<User> findAll() {
-        List<User> userList = new ArrayList<>();
-        userList.addAll(userRepository.findAll());
-        return userList;
+    @EntityGraph(attributePaths = {"phoneList"})
+    public List<UserDto> findAll() {
+        return userRepository.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
