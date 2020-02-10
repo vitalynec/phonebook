@@ -1,5 +1,6 @@
 package com.vitalynec.phonebook;
 
+import com.vitalynec.phonebook.commandline.CommandLineParser;
 import com.vitalynec.phonebook.controller.CommonController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
