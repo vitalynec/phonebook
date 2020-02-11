@@ -1,14 +1,15 @@
 package com.vitalynec.phonebook.commandline;
 
-import com.vitalynec.phonebook.PhonebookApplication;
-import com.vitalynec.phonebook.controller.CommonController;
-import com.vitalynec.phonebook.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 
+import static com.vitalynec.phonebook.commandline.CommandStorage.*;
+
+/**
+ * Класс для работы с командной строкой, обеспечивающий взаимодействие с пользователем
+ */
 @Component
 public class CommandLineParser {
     protected Scanner scanner = new Scanner(System.in);
