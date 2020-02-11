@@ -1,6 +1,5 @@
 package com.vitalynec.phonebook.entity.dto;
 
-import com.vitalynec.phonebook.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -10,6 +9,6 @@ import lombok.ToString;
 @ToString(exclude = "user")
 public class PhoneDto {
     protected Integer id;
-    private User user;
+    private UserDto user;
     protected String number;
 }

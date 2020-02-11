@@ -12,118 +12,45 @@ import static com.vitalynec.phonebook.commandline.CommandStorage.*;
  */
 @Component
 public class CommandLineParser {
-    protected Scanner scanner = new Scanner(System.in);
 
-    protected CommonController controller;
+    private final List<String> commands = Arrays.asList(
+            CommandsText.ADD.getText() + CommandsText.ADD_HELP_TEXT.getText(),
+            CommandsText.REMOVE.getText() + CommandsText.REMOVE_HELP_TEXT.getText(),
+            CommandsText.ALL.getText(),
+            CommandsText.USER.getText() + CommandsText.USER_HELP_TEXT.getText(),
+            CommandsText.EXPORT.getText(),
+            CommandsText.HELP.getText(),
+            CommandsText.EXIT.getText()
+    );
+
+    protected Scanner scanner;
 
     @Autowired
-    public void setController(CommonController controller) {
-        this.controller = controller;
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void printMenu() {
-        List<String> commands = new ArrayList<>();
-        commands.add("add [user]|[user phone]\n");
-        commands.add("remove [user]|[user phone]\n");
-        commands.add("all\n");
-        commands.add("user [id]\n");
-        commands.add("export\n");
-        commands.add("help\n");
-        commands.add("exit\n");
-
         System.out.println("Доступные команды:\n");
-        commands.forEach(System.out::print);
+        commands.forEach(System.out::println);
     }
 
     public void readFromConsole() {
         String[] commands = scanner.nextLine().split(" ");
         Map<String, Command> commandMap = new HashMap<>();
 
-        commandMap.put("add", addCommand(commands));
-//        commandMap.put("remove", removeCommand(commands));
-        commandMap.put("all", allCommand());
-        commandMap.put("user", userCommand(commands));
-        commandMap.put("export", exportCommand());
-        commandMap.put("help", this::printMenu);
-        commandMap.put("exit", exitCommand());
+        commandMap.put(CommandsText.ADD.getText(), addCommand(commands));
+        commandMap.put(CommandsText.REMOVE.getText(), removeCommand(commands));
+        commandMap.put(CommandsText.ALL.getText(), allCommand());
+        commandMap.put(CommandsText.USER.getText(), userCommand(commands));
+        commandMap.put(CommandsText.EXPORT.getText(), exportCommand());
+        commandMap.put(CommandsText.HELP.getText(), this::printMenu);
+        commandMap.put(CommandsText.EXIT.getText(), exitCommand());
 
         commandMap.getOrDefault(commands[0].toLowerCase(), () -> {
             System.out.println("Команда не распознана, попробуйте еще раз");
             printMenu();
         }).execute();
     }
-
-    private Command exportCommand() {
-        return () -> {
-            System.out.println("Данный функционал находится в разработке...");
-        };
-    }
-
-    private Command exitCommand() {
-        return () -> {
-            System.out.println("Выход...");
-            PhonebookApplication.isProcess = false;
-        };
-    }
-
-    private void removeCommand(String[] commands) {
-        if (commands.length < 2) {
-            System.out.println("Недостаточное количество аргументов");
-            return;
-        }
-
-        if ("phone".equalsIgnoreCase(commands[1])) {
-            if (commands[2] == null || StringUtils.isEmpty(commands[2])) {
-                System.out.println("Недостаточное количество аргументов");
-            } else {
-                //TODO удаление телефона
-            }
-
-        }
-    }
-
-    private Command addCommand(String[] commands) {
-        return () -> {
-            if (commands.length < 3) {
-                System.out.println("Недостаточное количество аргументов");
-                return;
-            }
-            if ("user".equalsIgnoreCase(commands[1])) {
-                controller.addUser(commands[2]);
-            }
-
-            if ("phone".equalsIgnoreCase(commands[1])) {
-                if (commands[2] == null || StringUtils.isEmpty(commands[2])) {
-                    System.out.println("Недостаточное количество аргументов");
-                } else {
-                    try {
-                        controller.addPhoneToUser(commands[2], Long.valueOf(commands[3]));
-                    } catch (NotFoundException e) {
-                        System.out.println("Пользователь не найден!");
-                    }
-                }
-            }
-        };
-    }
-
-    private Command userCommand(String[] commands) {
-        return () -> {
-            if (commands.length < 2) {
-                System.out.println("Недостаточное количество аргументов");
-                return;
-            }
-
-            try {
-                System.out.println(controller.getUserById(Integer.valueOf(commands[1])));
-            } catch (NotFoundException e) {
-                System.out.println("Пользователь не найден!");
-            }
-        };
-    }
-
-    private Command allCommand() {
-        return () -> {
-            System.out.println(controller.getAllUsers());
-        };
-    }
 }
+
