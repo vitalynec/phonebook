@@ -1,6 +1,7 @@
 package com.vitalynec.phonebook.commandline;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -11,7 +12,7 @@ import static com.vitalynec.phonebook.commandline.CommandStorage.*;
  * Класс для работы с командной строкой, обеспечивающий взаимодействие с пользователем
  */
 @Component
-public class CommandLineParser {
+public class CommandLineHandler {
 
     private final List<String> commands = Arrays.asList(
             CommandsText.ADD.getText() + CommandsText.ADD_HELP_TEXT.getText(),
@@ -35,8 +36,12 @@ public class CommandLineParser {
         commands.forEach(System.out::println);
     }
 
-    public void readFromConsole() {
-        String[] commands = scanner.nextLine().split(" ");
+    private String[] readFromConsole() {
+        return scanner.nextLine().split(" ");
+    }
+
+    public void handle() {
+        String[] commands = readFromConsole();
         Map<String, Command> commandMap = new HashMap<>();
 
         commandMap.put(CommandsText.ADD.getText(), addCommand(commands));

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
- * Хранилище комманд для {@link CommandLineParser}
+ * Хранилище комманд для {@link CommandLineHandler}
  */
 @Component
 class CommandStorage {
