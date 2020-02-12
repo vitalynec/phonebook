@@ -87,7 +87,7 @@ class CommandStorage {
     static Command userCommand(String[] commands) {
         return () -> {
             try {
-                Assert.isTrue(commands.length > 2, () -> "Недостаточное количество аргументов");
+                Assert.isTrue(commands.length > 1, () -> "Недостаточное количество аргументов");
 
                 System.out.println(controller.getUserById(Integer.valueOf(commands[1])));
             } catch (NumberFormatException e) {
@@ -99,7 +99,7 @@ class CommandStorage {
     }
 
     /**
-     * Получение всех записей </br>
+     * Получение всех записей
      *
      * @return Текстовое представление пользователей со списком телефонов
      */
@@ -110,7 +110,7 @@ class CommandStorage {
     }
 
     /**
-     * Выход
+     * Завершение работы приложения
      */
     static Command exitCommand() {
         return () -> {
