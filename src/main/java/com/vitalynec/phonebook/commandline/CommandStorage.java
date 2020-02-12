@@ -2,11 +2,10 @@ package com.vitalynec.phonebook.commandline;
 
 import com.vitalynec.phonebook.PhonebookApplication;
 import com.vitalynec.phonebook.controller.CommonController;
-import com.vitalynec.phonebook.exception.IncorrectArgumentCountException;
 import com.vitalynec.phonebook.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import org.springframework.util.Assert;
 
 /**
  * Хранилище комманд для {@link CommandLineHandler}
@@ -27,21 +26,17 @@ class CommandStorage {
     static Command removeCommand(String[] commands) {
         return () -> {
             try {
-                checkCommandsLength(commands, 2);
-            } catch (IncorrectArgumentCountException e) {
-                System.out.println(e.getMessage());
+                Assert.isTrue(commands.length > 2, () -> "Недостаточное количество аргументов");
 
-            }
-
-            // TODO удаление пользователя
-
-            if ("phone".equalsIgnoreCase(commands[1])) {
-                if (commands[2] == null || StringUtils.isEmpty(commands[2])) {
-                    System.out.println("Недостаточное количество аргументов");
-                } else {
-                    //TODO удаление телефона
+                if ("user".equalsIgnoreCase(commands[1])) {
+                    // TODO удаление пользователя
                 }
 
+                if ("phone".equalsIgnoreCase(commands[1])) {
+                    //TODO удаление телефона
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         };
     }
@@ -52,26 +47,23 @@ class CommandStorage {
     static Command addCommand(String[] commands) {
         return () -> {
             try {
-                checkCommandsLength(commands, 3);
-            } catch (IncorrectArgumentCountException e) {
-                System.out.println(e.getMessage());
-            }
+                Assert.isTrue(commands.length > 2, () -> "Недостаточное количество аргументов");
 
-            if ("user".equalsIgnoreCase(commands[1])) {
-                controller.addUser(commands[2]);
-                // TODO добавить телефон, если пользователь не существует ???
-            }
+                if ("user".equalsIgnoreCase(commands[1])) {
+                    controller.addUser(commands[2]);
+                    // TODO добавить телефон, если пользователь не существует ???
+                }
 
-            if ("phone".equalsIgnoreCase(commands[1])) {
-                if (commands[2] == null || StringUtils.isEmpty(commands[2])) {
-                    System.out.println("Недостаточное количество аргументов");
-                } else {
+                if ("phone".equalsIgnoreCase(commands[1])) {
+                    Assert.isTrue(commands.length > 3, () -> "Недостаточное количество аргументов");
                     try {
                         controller.addPhoneToUser(commands[2], Integer.valueOf(commands[3]));
                     } catch (NotFoundException e) {
                         System.out.println("Пользователь не найден!");
                     }
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         };
     }
@@ -93,17 +85,13 @@ class CommandStorage {
     static Command userCommand(String[] commands) {
         return () -> {
             try {
-                checkCommandsLength(commands, 2);
-            } catch (IncorrectArgumentCountException e) {
-                System.out.println(e.getMessage());
-            }
+                Assert.isTrue(commands.length > 2, () -> "Недостаточное количество аргументов");
 
-            try {
                 System.out.println(controller.getUserById(Integer.valueOf(commands[1])));
-            } catch (NotFoundException e) {
-                System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Некорректно указан ID пользователя!");
+            } catch (NotFoundException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         };
     }
@@ -127,12 +115,5 @@ class CommandStorage {
             System.out.println("Выход...");
             PhonebookApplication.isProcess = false;
         };
-    }
-
-    private static void checkCommandsLength(String[] commands, int minLength)
-            throws IncorrectArgumentCountException {
-        if (commands.length < minLength) {
-            throw new IncorrectArgumentCountException("Недостаточное количество аргументов");
-        }
     }
 }
