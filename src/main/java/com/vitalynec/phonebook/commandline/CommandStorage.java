@@ -29,13 +29,15 @@ class CommandStorage {
                 Assert.isTrue(commands.length > 2, () -> "Недостаточное количество аргументов");
 
                 if ("user".equalsIgnoreCase(commands[1])) {
-                    // TODO удаление пользователя
+                    controller.removeUser(Integer.valueOf(commands[2]));
                 }
 
                 if ("phone".equalsIgnoreCase(commands[1])) {
                     //TODO удаление телефона
                 }
-            } catch (IllegalArgumentException e) {
+            } catch (NumberFormatException e) {
+                System.out.println("Некорректно указан ID пользователя!");
+            } catch (NotFoundException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         };

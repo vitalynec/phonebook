@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> save(User entity);
+    Optional<UserDto> save(UserDto dto);
+
+    void deleteById(Integer id) throws NotFoundException;
 
     List<UserDto> findAll();
 

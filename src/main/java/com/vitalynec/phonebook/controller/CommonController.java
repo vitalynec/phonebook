@@ -28,7 +28,7 @@ public class CommonController {
     }
 
     public void addUser(String name) {
-        User user = new User();
+        UserDto user = new UserDto();
         user.setName(name);
         userService.save(user);
     }
@@ -48,6 +48,10 @@ public class CommonController {
         phoneService.save(phone);
     }
 
-    public void removePhone(Long id) {
+    public void removePhone(Integer id) {
+    }
+
+    public void removeUser(Integer id) throws NotFoundException {
+        userService.deleteById(id);
     }
 }

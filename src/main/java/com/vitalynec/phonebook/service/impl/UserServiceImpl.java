@@ -32,8 +32,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> save(User entity) {
-        return Optional.of(userRepository.save(entity));
+    public Optional<UserDto> save(UserDto dto) {
+        {
+            return Optional.of(convertToDto(
+                    userRepository.save(convertToEntity(dto))
+                    )
+            );
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Integer id) throws NotFoundException {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else throw new NotFoundException();
     }
 
     @Override
