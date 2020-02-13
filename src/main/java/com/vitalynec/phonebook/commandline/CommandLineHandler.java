@@ -1,18 +1,18 @@
 package com.vitalynec.phonebook.commandline;
 
+import com.vitalynec.phonebook.controller.CommonController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-
-import static com.vitalynec.phonebook.commandline.CommandStorage.*;
 
 /**
  * Класс для работы с командной строкой, обеспечивающий взаимодействие с пользователем
  */
 @Component
 public class CommandLineHandler {
+    protected Scanner scanner;
+    protected CommonController controller;
 
     private final List<String> commands = Arrays.asList(
             CommandsText.ADD.getText() + CommandsText.ADD_HELP_TEXT.getText(),
@@ -24,37 +24,40 @@ public class CommandLineHandler {
             CommandsText.EXIT.getText()
     );
 
-    protected Scanner scanner;
-
-    @Autowired
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     public void printMenu() {
         System.out.println("Доступные команды:\n");
         commands.forEach(System.out::println);
     }
 
-    private String[] readFromConsole() {
+    public String[] readFromUser() {
         return scanner.nextLine().split(" ");
+        // Refactor TODO io.reader
     }
 
-    public void handle() {
-        String[] commands = readFromConsole();
+    public void handle(String[] commands) {
         Map<String, Command> commandMap = new HashMap<>();
 
-        commandMap.put(CommandsText.ADD.getText(), addCommand(commands));
-        commandMap.put(CommandsText.REMOVE.getText(), removeCommand(commands));
-        commandMap.put(CommandsText.ALL.getText(), allCommand());
-        commandMap.put(CommandsText.USER.getText(), userCommand(commands));
-        commandMap.put(CommandsText.EXPORT.getText(), exportCommand());
+        commandMap.put(CommandsText.ADD.getText(), controller.addUser(commands));
+        commandMap.put(CommandsText.REMOVE.getText(), controller.remove(commands));
+        commandMap.put(CommandsText.ALL.getText(), controller.getAll());
+        commandMap.put(CommandsText.USER.getText(), controller.getUser(commands));
+        commandMap.put(CommandsText.EXPORT.getText(), controller.export());
         commandMap.put(CommandsText.HELP.getText(), this::printMenu);
-        commandMap.put(CommandsText.EXIT.getText(), exitCommand());
+        commandMap.put(CommandsText.EXIT.getText(), controller.exit());
 
         commandMap.getOrDefault(commands[0].toLowerCase(), () -> {
             System.out.println("Команда не распознана, попробуйте еще раз");
             printMenu();
         }).execute();
+    }
+
+    @Autowired
+    public void setController(CommonController controller) {
+        this.controller = controller;
+    }
+
+    @Autowired
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 }

@@ -33,7 +33,9 @@ public class PhonebookApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         handler.printMenu();
         do {
-            handler.handle();
+            handler.handle(
+                    handler.readFromUser()
+            );
         } while (isProcess);
     }
 }
