@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 public class PhoneServiceImpl implements PhoneService {
@@ -42,15 +40,10 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public List<PhoneDto> findAll() {
-        return phoneRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void deleteById(Integer id) {
-        phoneRepository.deleteById(id);
+        if (phoneRepository.existsById(id)) {
+            phoneRepository.deleteById(id);
+        }
     }
 
     /**
