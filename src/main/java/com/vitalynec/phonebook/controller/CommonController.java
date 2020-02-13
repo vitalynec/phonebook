@@ -36,6 +36,8 @@ public class CommonController {
     public static final String USER_NOT_FOUND = "Пользователь не найден";
     public static final String COMMAND_NOT_IDENTIFIED = "Команда не определена";
     public static final String UNCORRECT_ID = "Некорректно указан ID записи";
+    public static final String USER_TEXT = "user";
+    public static final String PHONE_TEXT = "phone";
 
     protected UserService userService;
     protected PhoneService phoneService;
@@ -48,7 +50,7 @@ public class CommonController {
             try {
                 Assert.isTrue(commands.length > 2, () -> ILLEGAL_ARGUMENT_COUNT);
 
-                if ("user".equalsIgnoreCase(commands[1])) {
+                if (USER_TEXT.equalsIgnoreCase(commands[1])) {
                     UserDto user = new UserDto();
                     user.setName(commands[2]);
                     System.out.println(
@@ -56,7 +58,7 @@ public class CommonController {
                     );
                 }
 
-                if ("phone".equalsIgnoreCase(commands[1])) {
+                if (PHONE_TEXT.equalsIgnoreCase(commands[1])) {
                     Assert.isTrue(commands.length > 3, () -> ILLEGAL_ARGUMENT_COUNT);
                     try {
                         PhoneDto phone = new PhoneDto();
@@ -85,11 +87,11 @@ public class CommonController {
                 Integer id = Integer.valueOf(commands[2]);
 
                 switch (commands[1].toLowerCase()) {
-                    case "user": {
+                    case USER_TEXT: {
                         userService.deleteById(id);
                         break;
                     }
-                    case "phone": {
+                    case PHONE_TEXT: {
                         phoneService.deleteById(id);
                         break;
                     }
