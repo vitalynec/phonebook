@@ -1,4 +1,4 @@
-package com.vitalynec.phonebook.commandline;
+package com.vitalynec.phonebook.controller.commandline;
 
 /**
  * Комманда <br/>

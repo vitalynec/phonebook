@@ -1,5 +1,7 @@
-package com.vitalynec.phonebook.commandline;
+package com.vitalynec.phonebook.handler;
 
+import com.vitalynec.phonebook.controller.commandline.Command;
+import com.vitalynec.phonebook.controller.commandline.CommandsText;
 import com.vitalynec.phonebook.controller.CommonController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,8 +12,7 @@ import java.util.*;
  * Класс для работы с командной строкой, обеспечивающий взаимодействие с пользователем
  */
 @Component
-public class CommandLineHandler {
-    protected Scanner scanner;
+public class CommandLineHandler implements Handler {
     protected CommonController controller;
 
     private final List<String> commands = Arrays.asList(
@@ -24,17 +25,9 @@ public class CommandLineHandler {
             CommandsText.EXIT.getText()
     );
 
-    public void printMenu() {
-        System.out.println("Доступные команды:\n");
-        commands.forEach(System.out::println);
-    }
-
-    public String[] readFromUser() {
-        return scanner.nextLine().split(" ");
-        // Refactor TODO io.reader
-    }
-
+    @Override
     public void handle(String[] commands) {
+        printMenu();
         Map<String, Command> commandMap = new HashMap<>();
 
         commandMap.put(CommandsText.ADD.getText(), controller.addUser(commands));
@@ -51,13 +44,14 @@ public class CommandLineHandler {
         }).execute();
     }
 
+    private void printMenu() {
+        System.out.println("Доступные команды:\n");
+        commands.forEach(System.out::println);
+    }
+
     @Autowired
     public void setController(CommonController controller) {
         this.controller = controller;
     }
 
-    @Autowired
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
 }

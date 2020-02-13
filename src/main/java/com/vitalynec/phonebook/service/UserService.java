@@ -1,8 +1,7 @@
 package com.vitalynec.phonebook.service;
 
-import com.vitalynec.phonebook.entity.User;
 import com.vitalynec.phonebook.entity.dto.UserDto;
-import com.vitalynec.phonebook.exception.NotFoundException;
+import com.vitalynec.phonebook.service.exception.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;

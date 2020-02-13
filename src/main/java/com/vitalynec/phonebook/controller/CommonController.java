@@ -1,10 +1,10 @@
 package com.vitalynec.phonebook.controller;
 
 import com.vitalynec.phonebook.PhonebookApplication;
-import com.vitalynec.phonebook.commandline.Command;
+import com.vitalynec.phonebook.controller.commandline.Command;
 import com.vitalynec.phonebook.entity.dto.PhoneDto;
 import com.vitalynec.phonebook.entity.dto.UserDto;
-import com.vitalynec.phonebook.exception.NotFoundException;
+import com.vitalynec.phonebook.service.exception.NotFoundException;
 import com.vitalynec.phonebook.service.PhoneService;
 import com.vitalynec.phonebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

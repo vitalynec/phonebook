@@ -1,4 +1,4 @@
-package com.vitalynec.phonebook.commandline;
+package com.vitalynec.phonebook.controller.commandline;
 
 /**
  * Перечисление для списка комманд и их текстового представления
@@ -21,7 +21,7 @@ public enum CommandsText {
 
     private final String text;
 
-    protected String getText() {
+    public String getText() {
         return text;
     }
 }

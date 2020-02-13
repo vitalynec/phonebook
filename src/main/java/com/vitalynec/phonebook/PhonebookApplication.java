@@ -1,6 +1,7 @@
 package com.vitalynec.phonebook;
 
-import com.vitalynec.phonebook.commandline.CommandLineHandler;
+import com.vitalynec.phonebook.handler.CommandLineHandler;
+import com.vitalynec.phonebook.handler.Handler;
 import com.vitalynec.phonebook.controller.CommonController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

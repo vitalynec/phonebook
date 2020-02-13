@@ -2,7 +2,7 @@ package com.vitalynec.phonebook.service.impl;
 
 import com.vitalynec.phonebook.entity.User;
 import com.vitalynec.phonebook.entity.dto.UserDto;
-import com.vitalynec.phonebook.exception.NotFoundException;
+import com.vitalynec.phonebook.service.exception.NotFoundException;
 import com.vitalynec.phonebook.repository.UserRepository;
 import com.vitalynec.phonebook.service.UserService;
 import org.modelmapper.ModelMapper;
