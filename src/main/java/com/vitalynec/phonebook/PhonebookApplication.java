@@ -3,6 +3,7 @@ package com.vitalynec.phonebook;
 import com.vitalynec.phonebook.handler.CommandLineHandler;
 import com.vitalynec.phonebook.handler.Handler;
 import com.vitalynec.phonebook.controller.CommonController;
+import com.vitalynec.phonebook.io.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,8 @@ public class PhonebookApplication implements CommandLineRunner {
     public static boolean isProcess = true;
 
     protected CommonController controller;
-    protected CommandLineHandler handler;
+    protected Handler handler;
+    protected Reader reader;
 
     @Autowired
     public void setController(CommonController controller) {
@@ -32,10 +34,9 @@ public class PhonebookApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        handler.printMenu();
         do {
             handler.handle(
-                    handler.readFromUser()
+                    reader.read()
             );
         } while (isProcess);
     }
