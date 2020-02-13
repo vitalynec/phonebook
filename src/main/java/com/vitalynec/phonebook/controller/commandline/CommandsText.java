@@ -5,12 +5,12 @@ package com.vitalynec.phonebook.controller.commandline;
  */
 public enum CommandsText {
     ADD("add"),
-    ADD_HELP_TEXT(" [user]|[user phone]"),
+    ADD_HELP("[user \"name\"]|[phone \"number\"]"),
     REMOVE("remove"),
-    REMOVE_HELP_TEXT(" [user]|[user phone]"),
+    REMOVE_HELP("[user \"id\"]|[phone \"id\"]"),
     ALL("all"),
     USER("user"),
-    USER_HELP_TEXT(" [id]"),
+    USER_HELP("[id]"),
     EXPORT("export"),
     HELP("help"),
     EXIT("exit");
