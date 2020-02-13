@@ -1,6 +1,5 @@
-package com.vitalynec.phonebook.entity;
+package com.vitalynec.phonebook.entity.dto;
 
-import com.vitalynec.phonebook.entity.dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -3,7 +3,7 @@ package com.vitalynec.phonebook.controller;
 import com.vitalynec.phonebook.PhonebookApplication;
 import com.vitalynec.phonebook.controller.commandline.Command;
 import com.vitalynec.phonebook.controller.commandline.CommandsText;
-import com.vitalynec.phonebook.entity.Users;
+import com.vitalynec.phonebook.entity.dto.Users;
 import com.vitalynec.phonebook.entity.dto.PhoneDto;
 import com.vitalynec.phonebook.entity.dto.UserDto;
 import com.vitalynec.phonebook.service.PhoneService;

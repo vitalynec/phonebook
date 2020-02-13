@@ -1,5 +1,6 @@
-package com.vitalynec.phonebook.io;
+package com.vitalynec.phonebook.io.impl;
 
+import com.vitalynec.phonebook.io.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
